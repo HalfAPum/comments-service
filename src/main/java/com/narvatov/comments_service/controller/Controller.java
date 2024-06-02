@@ -2,10 +2,13 @@ package com.narvatov.comments_service.controller;
 
 import com.narvatov.comments_service.dto.request.CreateComment;
 import com.narvatov.comments_service.dto.request.UpdateComment;
+import com.narvatov.comments_service.dto.respose.CommentDTO;
 import com.narvatov.comments_service.model.Comment;
 import com.narvatov.comments_service.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/comments")
@@ -27,6 +30,11 @@ public class Controller {
     @DeleteMapping("delete/{id}")
     public int delete(@PathVariable("id") int id) {
         return service.delete(id);
+    }
+
+    @GetMapping("getCommentsByNewId/{id}")
+    public List<CommentDTO> getCommentsByNewId(@PathVariable("id") int newsId) {
+        return service.getCommentsByNewId(newsId);
     }
 
 }

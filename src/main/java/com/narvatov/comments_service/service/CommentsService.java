@@ -3,9 +3,15 @@ package com.narvatov.comments_service.service;
 import com.narvatov.comments_service.dao.CommentsDao;
 import com.narvatov.comments_service.dto.request.CreateComment;
 import com.narvatov.comments_service.dto.request.UpdateComment;
+import com.narvatov.comments_service.dto.respose.CommentDTO;
+import com.narvatov.comments_service.dto.respose.SimpleUserDTO;
+import com.narvatov.comments_service.mapper.MapperKt;
 import com.narvatov.comments_service.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentsService {
@@ -33,4 +39,12 @@ public class CommentsService {
         return id;
     }
 
+    public List<CommentDTO> getCommentsByNewId(int newsId) {
+        List<Comment> comments = dao.findAllByNewsId(newsId);
+
+        //TODO make request to user service and get users for comments
+        List<SimpleUserDTO> authors = new ArrayList<>();
+
+        return MapperKt.mapToSimpleNewsDTO(comments, authors);
+    }
 }
